@@ -21,11 +21,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Web Design'
         ]);
 
-        Tag::create([
-            'name' => '#web'
-        ]);
-        Tag::create([
-            'name' => '#design'
+        User::create([
+            'name' => 'John',
+            'email' => 'john@gmail.com',
+            'password' => bcrypt('password')
         ]);
     }
 }

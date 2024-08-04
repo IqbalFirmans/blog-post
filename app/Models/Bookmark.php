@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Bookmark extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function category()
+    public function post()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Post::class, 'post_id');
     }
 
     public function user()

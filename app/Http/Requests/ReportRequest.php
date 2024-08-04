@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class TagRequest extends FormRequest
+class ReportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +22,8 @@ class TagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:100', Rule::unique('tags', 'name')->ignore($this->tag)]
+            'post_id' => 'required|numeric',
+            'reason' => 'required'
         ];
     }
 }

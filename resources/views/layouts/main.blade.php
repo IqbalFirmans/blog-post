@@ -26,10 +26,13 @@
             <div class="collapse navbar-collapse " id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog">Blog</a>
+                        <a class="nav-link {{ Request::is('blog') ? 'active' : '' }}" href="/blog">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/category">Categories</a>
+                        <a class="nav-link {{ Request::is('blog/category') ? 'active' : '' }}" href="/blog/category">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('blog/bookmarks') ? 'active' : '' }}" href="/blog/bookmarks">Bookmarks</a>
                     </li>
                 </ul>
 
@@ -41,7 +44,8 @@
                                 Welcome back, {{ auth()->user()->name }}
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/posts"><i class="bi bi-layout-text-sidebar-reverse"></i>
+                                <li><a class="dropdown-item" href="/posts"><i
+                                            class="bi bi-layout-text-sidebar-reverse"></i>
                                         My Posts</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -49,15 +53,15 @@
                                 <li>
                                     <form action="/logout" method="post">
                                         @csrf
-                                        <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                                        <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i>
+                                            Logout</button>
                                     </form>
                                 </li>
                             </ul>
                         </div>
                     @else
                         <li class="nav-item">
-                            <a href="/login" class="nav-link"><i
-                                class="bi bi-box-arrow-in-right"></i> Login</a>
+                            <a href="/login" class="nav-link"><i class="bi bi-box-arrow-in-right"></i> Login</a>
                         </li>
                     @endauth
                 </ul>
@@ -68,6 +72,22 @@
 
 
     <div class="container mt-4">
+
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong class="text-success">{{ $message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong class="text-success">{{ $message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+
+
         @yield('container')
     </div>
 

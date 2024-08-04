@@ -123,10 +123,10 @@
                             <div data-i18n="Account Settings">Categories</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ Request::is('tags') ? 'active' : '' }}">
-                        <a href="/tags" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                            <div data-i18n="Tags">Tags</div>
+                    <li class="menu-item {{ Request::is('reports') ? 'active' : '' }}">
+                        <a href="/reports" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-message-alt-error"></i>
+                            <div data-i18n="Account Settings">Reports</div>
                         </a>
                     </li>
                 </ul>

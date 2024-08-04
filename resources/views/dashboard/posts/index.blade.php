@@ -24,7 +24,6 @@
                             <th>No</th>
                             <th>Title</th>
                             <th>Category</th>
-                            <th>Tags</th>
                             <th>Image</th>
                             <th>Content</th>
                             <th>Actions</th>
@@ -39,7 +38,6 @@
                                     <strong>{{ $post->title }}</strong>
                                 </td>
                                 <td>{{ $post->category->name }}</td>
-                                <td>{{ $post->tags->pluck('name')->implode(', ') }}</td>
                                 <td>
                                     <img src="storage/{{ $post->image }}" alt="{{ $post->title }}" width="80"
                                         height="50">
@@ -90,7 +88,7 @@
                                                 </div>
                                                 <div class="row g-2">
                                                     <div class="col mb-0">
-                                                        <input type="hidden" name="oldImage" value="{{ $post->imagexxxxx }}">
+                                                        <input type="hidden" name="oldImage" value="{{ $post->image }}">
                                                         <label for="image" class="form-label">Image</label>
                                                         <input type="file" id="image" name="image"
                                                             class="form-control @error('image') is-invalid @enderror" />
@@ -130,26 +128,6 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-
-                                                    <div class="row">
-                                                        <div class="col mb-0">
-                                                            <label class="form-label">Tags : </label>
-                                                            @forelse ($tags as $tag)
-                                                                <div class="form-check form-check-inline mt-3">
-
-                                                                    <input class="form-check-input  @error('tags') is-invalid @enderror"
-                                                                        type="checkbox" name="tags[]"
-                                                                        value="{{ $tag->id }}"
-                                                                        id="check-{{ $tag->id }}" {{ $post->tags->contains($tag->id) ? 'checked' : '' }} />
-                                                                    <label class="form-check-label" for="check-{{ $tag->id }}"> {{ $tag->name }} </label>
-                                                                </div>
-                                                            @empty
-                                                                <br>
-                                                                <span>Tag not Available</span>
-                                                            @endforelse
-                                                        </div>
-                                                    </div>
-
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -199,7 +177,6 @@
                             <th>No</th>
                             <th>Title</th>
                             <th>Category</th>
-                            <th>Tags</th>
                             <th>Image</th>
                             <th>Content</th>
                             <th>Actions</th>
@@ -276,25 +253,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col mb-0">
-                                    <label class="form-label">Tags : </label>
-                                    @forelse ($tags as $tag)
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input  @error('tags') is-invalid @enderror"
-                                                type="checkbox" name="tags[]" value="{{ $tag->id }}"
-                                                id="check-{{ $tag->id }}" />
-                                            <label class="form-check-label" for="check-{{ $tag->id }}">
-                                                {{ $tag->name }} </label>
-                                        </div>
-                                    @empty
-                                        <br>
-                                        <span>Tag not Available</span>
-                                    @endforelse
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                     <div class="modal-footer">

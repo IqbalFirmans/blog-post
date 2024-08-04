@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -20,9 +19,8 @@ class PostController extends Controller
         $posts = Post::where('user_id', Auth::user()->id)->paginate(10);
 
         $categories = Category::all();
-        $tags = Tag::all();
 
-        return view('dashboard.posts.index', compact('posts', 'categories', 'tags'));
+        return view('dashboard.posts.index', compact('posts', 'categories'));
     }
 
     /**
@@ -41,15 +39,12 @@ class PostController extends Controller
         $validateData = $request->validated();
 
         try {
-            $post = Post::create([
-                'title' => $validateData['title'],
-                'image' =>  $validateData['image'] = $request->file('image')->store('post-images'),
-                'content' => $validateData['content'],
-                'category_id' => $validateData['category_id'],
-                'user_id' => Auth::user()->id
-            ]);
+            $validateData['image'] = $request->file('image')->store('post-images');
 
-            $post->tags()->sync($validateData['tags']);
+            $validateData['user_id'] = Auth::user()->id;
+
+            Post::create($validateData);
+
 
             return redirect()->route('posts.index')->with('success', 'Create Post Success!');
         } catch (\Throwable $e) {
@@ -91,21 +86,9 @@ class PostController extends Controller
                 $validateData['image'] = $request->file('image')->store('post-images');
             }
 
-             // Jika tidak ada gambar baru yang diunggah, tetap menggunakan gambar lama
-            $image = $validateData['image'] ?? $post->image;
-
-            $post->update([
-                'title' => $validateData['title'],
-                'image' =>  $image,
-                'content' => $validateData['content'],
-                'category_id' => $validateData['category_id']
-            ]);
-
-
-            $post->tags()->sync($validateData['tags']);
+            $post->update($validateData);
 
             return redirect()->route('posts.index')->with('success', 'Update Post Success!');
-
         } catch (\Throwable $e) {
 
             return redirect()->route('posts.index')->with('success', 'Failed Update Post.' . $e->getMessage());
@@ -118,8 +101,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         try {
-            $post->tags()->detach();
-
             if ($post->image) {
 
                 Storage::delete($post->image);
@@ -128,7 +109,6 @@ class PostController extends Controller
             $post->delete();
 
             return redirect()->route('posts.index')->with('success', 'Delete Post Success!');
-
         } catch (\Throwable $e) {
 
             return redirect()->route('posts.index')->with('success', 'Failed Delete Post.' . $e->getMessage());

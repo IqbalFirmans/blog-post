@@ -23,9 +23,8 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'image' => ['file', 'mimes:png,jpg,jpeg', 'max:3048', $this->method() == 'PUT' ? 'nullable' : 'required' ],
+            'image' => ['file', 'mimes:png,jpg,jpeg', $this->method() == 'PUT' ? 'nullable' : 'required' ],
             'content' => 'required',
-            'tags' => 'required|array',
             'category_id' => 'required|numeric'
         ];
     }
