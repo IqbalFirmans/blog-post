@@ -70,7 +70,7 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in storage.    
      */
     public function update(PostRequest $request, Post $post)
     {
@@ -79,8 +79,8 @@ class PostController extends Controller
         try {
             if ($request->hasFile('image')) {
 
-                if ($request->oldImage) {
-                    Storage::delete($request->oldImage);
+                if ($post->image) {
+                    Storage::delete($post->image);
                 }
 
                 $validateData['image'] = $request->file('image')->store('post-images');
@@ -102,7 +102,6 @@ class PostController extends Controller
     {
         try {
             if ($post->image) {
-
                 Storage::delete($post->image);
             }
 

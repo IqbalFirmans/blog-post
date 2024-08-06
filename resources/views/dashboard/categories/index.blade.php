@@ -23,7 +23,7 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
-                            <th>Name Post</th>
+                            <th>Total Post</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -141,8 +141,7 @@
                             <div class="col mb-3">
                                 <label for="category" class="form-label">Name</label>
                                 <input type="text" id="category" name="name"
-                                    class="form-control @error('name') is-invalid @enderror" placeholder="Enter Category"
-                                    value="{{ old('name') }}" />
+                                    class="form-control @error('name') is-invalid @enderror" placeholder="Enter Category"/>
 
                                 @error('name')
                                     <div class="invalid-feedback">

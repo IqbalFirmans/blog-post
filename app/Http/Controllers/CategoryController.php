@@ -15,7 +15,6 @@ class CategoryController extends Controller
     {
         $categories = Category::withCount('posts')->get();
 
-
         return view('dashboard.categories.index', compact('categories'));
     }
 

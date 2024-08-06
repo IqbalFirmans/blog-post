@@ -12,11 +12,25 @@
     {{-- bootstrap icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
+    <style>
+        .btn-primary {
+            background-color: #5f61e6;
+        }
+
+        .btn-success {
+            background-color: #66c732;
+        }
+
+        .btn-danger {
+            background-color: #e6381a;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #5f61e6">
         <div class="container">
             <a class="navbar-brand" href="/">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -50,6 +64,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
+
                                 <li>
                                     <form action="/logout" method="post">
                                         @csrf

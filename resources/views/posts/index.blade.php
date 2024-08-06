@@ -24,7 +24,7 @@
 
                     <div class="demo-inline-spacing">
                         <a href="/posts" class="btn btn-primary">Read More</a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reportModal">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reportModal-1">
                             Report
                         </button>
                     </div>
@@ -92,6 +92,44 @@
                     </div>
 
                     <!-- Modal -->
+
+                    <div class="modal fade" id="reportModal-1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Report Post</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('reports.store') }}" method="post">
+                                    <div class="modal-body">
+                                        @csrf
+                                        <input type="hidden" name="post_id" value="{{ $posts[0]->id }}">
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="reason" class="form-label">Reason</label>
+                                                <textarea type="text" id="reason" name="reason" class="form-control @error('reason') is-invalid @enderror"
+                                                    placeholder="Submit Reason">{{ old('reason') }}</textarea>
+
+                                                @error('reason')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">

@@ -88,16 +88,19 @@
                                                 </div>
                                                 <div class="row g-2">
                                                     <div class="col mb-0">
-                                                        <input type="hidden" name="oldImage" value="{{ $post->image }}">
                                                         <label for="image" class="form-label">Image</label>
                                                         <input type="file" id="image" name="image"
-                                                            class="form-control @error('image') is-invalid @enderror" />
+                                                            class="form-control @error('image') is-invalid @enderror" onchange="previewImage(event, {{ $post->id }})"/>
 
                                                         @error('image')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
                                                             </div>
                                                         @enderror
+
+                                                        <div class="mt-2">
+                                                            <img class="img-thumbnail image-preview" id="edit-preview-{{ $post->id }}" itemprop="thumbnail" src="storage/{{ $post->image }}" style="display: block;">
+                                                        </div>
                                                     </div>
                                                     <div class="col mb-3">
 
@@ -218,13 +221,16 @@
                             <div class="col mb-0">
                                 <label for="image" class="form-label">Image</label>
                                 <input type="file" id="image" name="image"
-                                    class="form-control @error('image') is-invalid @enderror" />
+                                    class="form-control @error('image') is-invalid @enderror" onchange="document.getElementById('img-preview').src = window.URL.createObjectURL(this.files[0])" />
 
                                 @error('image')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
+                                <div class="mt-2">
+                                    <img class="img-thumbnail image-preview" id="img-preview" itemprop="thumbnail" style="display: block;">
+                                </div>
                             </div>
                             <div class="col mb-3">
 
@@ -265,4 +271,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function previewImage(event, postId) {
+            var output = document.getElementById('edit-preview-' + postId);
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // Free memory
+            }
+        }
+    </script>
 @endsection
